@@ -9,12 +9,10 @@ main = do
   let solution = solve $ map readNum $ lines text
   putStrLn $ show solution
 
-solve xs =
-  let frequencies = scanl (+) 0 $ cycle xs
-      foundSoFar = scanl (\found next -> S.insert next found) S.empty frequencies
-      withPreviouslyFound = tail frequencies `zip` foundSoFar
-      repeated = map fst $ filter (uncurry S.member) withPreviouslyFound
-  in head repeated
+solve xs = solveRecursive (cycle xs) 0 S.empty
+
+solveRecursive (x:xs) curr found | S.member curr found = curr
+                                 | otherwise = solveRecursive xs (curr+x) (S.insert curr found)
 
 readNum :: String -> Int
 readNum ('+' : rest) = readNum rest
