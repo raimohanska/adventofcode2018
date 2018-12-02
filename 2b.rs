@@ -2,8 +2,6 @@
 use std::io::{self, BufRead};
 use std::path::Path;
 use std::fs::File;
-use std::collections::HashSet;
-use itertools::Itertools;
 
 fn lines_from_file<P>(filename: P) -> Result<io::Lines<io::BufReader<File>>, io::Error>
   where P: AsRef<Path>,
@@ -17,7 +15,7 @@ fn count_diff(x: &String, y: &String) -> usize {
 }
 
 fn common_letters(x: &String, y: &String) -> String {
-    izip!(x.chars(), y.chars()).filter(|&(x, y)| x == y).map(|(x, y)| x).collect()
+    izip!(x.chars(), y.chars()).filter(|&(x, y)| x == y).map(|(x, _)| x).collect()
 }
 
 fn main() {
@@ -47,7 +45,6 @@ impl<A : Clone, I: Clone + Iterator<Item = A>> Iterator for PairIter<A, I> {
     type Item = (A, A);
 
     fn next(&mut self) -> Option<(A, A)> {
-        let mut need_new = false;
         let mut b: Option<A> = None;
         let mut new_a = None;
         match self.i2.as_mut() {
@@ -84,7 +81,5 @@ impl<A : Clone, I: Clone + Iterator<Item = A>> Iterator for PairIter<A, I> {
                 }
             }
         }
-        None
     }
 }
-
