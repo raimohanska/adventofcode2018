@@ -2,5 +2,6 @@
 *.hi
 *.o
 test
-1a
-1b
+*a
+*b
+target
