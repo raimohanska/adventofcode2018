@@ -10,8 +10,9 @@ fn lines_from_file<P>(filename: P) -> Result<io::Lines<io::BufReader<File>>, io:
     Ok(io::BufReader::new(file).lines())
 }
 
-fn find_first_repeated<I: Iterator<Item = i32>>(mut directions: I, current: i32, mut history: HashSet<i32>) -> i32{
-  let mut next = current;
+fn find_first_repeated<I: Iterator<Item = i32>>(mut directions: I) -> i32{
+  let mut history = HashSet :: new();
+  let mut next = 0;
   loop {
       next += directions.next().unwrap();
       if history.contains(&next) {
@@ -25,11 +26,11 @@ fn main() {
    let numbers: Vec<i32> = lines_from_file("1.txt")
         .unwrap()
         .map(|line| line.unwrap().parse::<i32>().unwrap())
-        .collect::<Vec<i32>>();
+        .collect();
 
    let directions = numbers
      .iter().cloned().cycle();
 
-   let result = find_first_repeated(directions, 0, HashSet :: new()); 
+   let result = find_first_repeated(directions); 
    println!("{}", result);
 }
