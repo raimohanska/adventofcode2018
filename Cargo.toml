@@ -1,0 +1,19 @@
+[package]
+name = "adventofcode"
+version = "0.1.0"
+authors = ["Juha Paananen <juha.paananen@gmail.com>"]
+
+[dependencies]
+itertools = "0.7.8"
+
+[[bin]]
+name = "1a"
+path = "./1a.rs"
+
+[[bin]]
+name = "1b"
+path = "./1b.rs"
+
+[[bin]]
+name = "2a"
+path = "./2a.rs"
