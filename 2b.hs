@@ -1,21 +1,14 @@
-{-# LANGUAGE OverloadedStrings, LambdaCase, TupleSections #-}
+{-# LANGUAGE TupleSections, LambdaCase #-}
 module Main where
 
-import Data.List(sort, group)
-import qualified Data.Set as S
+import Data.List(tails)
 
-main = do
-  text <- readFile "2.txt"
-  let solution = solve $ lines text
-  putStrLn $ show solution
+main = readFile "2.txt" >>= (return . solve . lines) >>= print
 
-solve lines = 
-  let (a, b) = head $ filter (\pair -> (uncurry countDiff) pair == 1) $ pairs lines
-  in commonLetters a b
+solve = commonLetters . head . filter ((1 ==) . countDiff) . pairs
 
-countDiff a b = length $ filter (uncurry (/=)) $ zip a b
+countDiff (a, b) = length $ filter (uncurry (/=)) $ zip a b
 
-commonLetters a b = map fst $ filter (uncurry (==)) $ zip a b
+commonLetters (a, b) = map fst $ filter (uncurry (==)) $ zip a b
 
-pairs [] = []
-pairs (x : xs) = map (x,) xs ++ pairs xs
+pairs xs = xs `zip` (tails $ tail xs) >>= (\(x, ys) -> map (x,) ys)
