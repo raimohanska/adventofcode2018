@@ -49,13 +49,13 @@ impl<A : Clone, I: Clone + Iterator<Item = A>> Iterator for PairIter<A, I> {
     fn next(&mut self) -> Option<(A, A)> {
         let mut need_new = false;
         let mut b: Option<A> = None;
-        let mut new_pair = None;
+        let mut new_a = None;
         match self.i2.as_mut() {
             None => {
                 match self.i.next() {
                     None => return None,
                     Some(a) => {
-                        new_pair = Some((a, self.i.clone()));
+                        new_a = Some(a);
                     }
                 }
             }
@@ -63,10 +63,11 @@ impl<A : Clone, I: Clone + Iterator<Item = A>> Iterator for PairIter<A, I> {
                 b = i2.next(); 
             }
         }
-        match new_pair {
+        match new_a {
             None => {},
-            Some((a, mut i2)) => {
+            Some(a) => {
                 self.a = Some(a);
+                let mut i2 = self.i.clone();
                 b = i2.next();
                 self.i2 = Some(i2);
             }
