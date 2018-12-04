@@ -5,6 +5,7 @@ authors = ["Juha Paananen <juha.paananen@gmail.com>"]
 
 [dependencies]
 itertools = "0.7.8"
+nom = "4.1.1"
 
 [[bin]]
 name = "1a"
@@ -21,3 +22,7 @@ path = "./2a.rs"
 [[bin]]
 name = "2b"
 path = "./2b.rs"
+
+[[bin]]
+name = "3a"
+path = "./3a.rs"
