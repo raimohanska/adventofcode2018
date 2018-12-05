@@ -10,16 +10,9 @@ import qualified Data.Set as S
 
 main = readFile "5.txt" >>= (return . solve . removeWhitespace) >>= print
 
-solve input = length $ reactChars input
+solve input = length $ react isOpposite "" input
 
 removeWhitespace = filter (not . isSpace)
-
-reactChars input = react isOpposite "" input
-
-check output = check' ' ' output
-  where check' c (x:xs) | c == x = False
-                        | otherwise = check' c xs
-        check' c []     = True
 
 react :: (a -> a -> Bool) -> [a] -> [a] -> [a]
 react f xs [] = reverse xs

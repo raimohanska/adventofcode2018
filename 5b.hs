@@ -14,16 +14,9 @@ solve input = foldl1 min $ map reactedLength $ map (removeFrom input) ['A'..'Z
 
 removeFrom xs c = filter ((/= c) . toUpper) xs
 
-reactedLength input = length $ reactChars input
+reactedLength input = length $ react isOpposite "" input
 
 removeWhitespace = filter (not . isSpace)
-
-reactChars input = react isOpposite "" input
-
-check output = check' ' ' output
-  where check' c (x:xs) | c == x = False
-                        | otherwise = check' c xs
-        check' c []     = True
 
 react :: (a -> a -> Bool) -> [a] -> [a] -> [a]
 react f xs [] = reverse xs
