@@ -25,11 +25,8 @@ check output = check' ' ' output
                         | otherwise = check' c xs
         check' c []     = True
 
--- Not the right answer!!
---
 react :: (a -> a -> Bool) -> [a] -> [a] -> [a]
-react f [] [] = []
-react f xs [] = xs
+react f xs [] = reverse xs
 react f [] (x:xs) = react f [x] xs
 react f (x:xs) (y:ys) | f x y = react f xs ys
                     | otherwise = react f (y : x : xs) ys
