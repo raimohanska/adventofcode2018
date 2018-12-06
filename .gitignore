@@ -1,7 +1,7 @@
 .idea
 *.hi
 *.o
-test
+test*
 *a
 *b
 target
