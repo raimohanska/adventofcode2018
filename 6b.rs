@@ -39,14 +39,10 @@ fn lines_from_file<P>(filename: P) -> Result<io::Lines<io::BufReader<File>>, io:
 fn main() {
    let coordinates: Vec<Coords> = lines_from_file("6.txt")
         .unwrap()
-        .map(|line| line.unwrap())
-        .map(|line:String| {
-            coords(&(line + "\n")).unwrap().1
-          }) // add \n to facilitate parsing
+        .map(|line| coords(&(line.unwrap() + "\n")).unwrap().1) // add \n to facilitate parsing
         .collect();
 
    let (width, height) = find_bounds(&coordinates);
-   //                   id,    distance
    let area_size = iter_coords(width, height)
        .filter(|(x, y)| calc_distance_sum((*x, *y), &coordinates) < 10000)
        .count();
