@@ -60,7 +60,7 @@ fn main() {
     println!("{} tasks", tasks.len());
 
     let mut sorted_roots = find_roots(&tasks);
-    let mut result: Vec<char> = Vec :: new();
+    let mut result: String = "".to_string();
     let mut in_progress: Vec<Worker> = Vec::new();
     let mut free_workers: i32 = 5;
     let mut second = 0;
@@ -94,16 +94,11 @@ fn main() {
       });
     }
 
-    print!("Result is ");
-    for r in result {
-        print!("{}", r);
-    }
-    println!();
+    println!("Result is {}", result);
     println!("Took {} seconds", second);
 }
 
 fn calc_time(task: char) -> i32 {
-    // TODO
     60 + (task as i32) - ('A' as i32) + 1
 }
 
