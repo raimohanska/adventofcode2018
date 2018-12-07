@@ -65,8 +65,8 @@ fn main() {
     let mut free_workers: i32 = 5;
     let mut second = 0;
 
-    while (!(sorted_roots.is_empty() && in_progress.is_empty())) {
-      while (free_workers > 0 && !sorted_roots.is_empty()) {
+    while !(sorted_roots.is_empty() && in_progress.is_empty()) {
+      while free_workers > 0 && !sorted_roots.is_empty() {
         let root: char = sorted_roots.remove(0);
         println!("{} Start work on {}", second, root);
         free_workers = free_workers - 1;
@@ -79,7 +79,7 @@ fn main() {
       }
 
       in_progress.retain(|worker| {
-          if (worker.left == 0) {
+          if worker.left == 0 {
               free_workers = free_workers + 1;
               let root = worker.task;
               println!("{} Finish work on {}", second, root);
@@ -110,7 +110,7 @@ fn iterate_next_roots(tasks: &mut TaskMap, root: char) -> Vec<char> {
   for key in to_check {
       let deps: &mut Task = tasks.get_mut(&key).unwrap();
       deps.before.remove(&root);
-      if (deps.before.is_empty()) {
+      if deps.before.is_empty() {
           next_roots.push(key);
       }
   }
@@ -120,7 +120,7 @@ fn iterate_next_roots(tasks: &mut TaskMap, root: char) -> Vec<char> {
 
 fn find_roots(tasks: &TaskMap) -> Vec<char> {
     let mut roots : Vec<char> = tasks.iter()
-        .filter(|(task, deps)| deps.before.is_empty())
+        .filter(|(_, deps)| deps.before.is_empty())
         .map(|(task, _)| *task)
         .collect();
     roots.sort();
