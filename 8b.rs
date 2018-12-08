@@ -50,7 +50,7 @@ fn node_value(n: &Node) -> i32 {
 fn read_node<I: Iterator<Item = i32>>(i: &mut I) -> Node {
     let num_children = i.next().expect("expected num_children");
     let num_metadata = i.next().expect("expected num_metadata");
-    let children: Vec<Node> = iter::repeat(0).take(num_children as usize).map(|_| read_node(i)).collect();
+    let children: Vec<Node> = iter::repeat_with(|| read_node(i)).take(num_children as usize).collect();
     let metadata: Vec<i32> = i.take(num_metadata as usize).collect();
     Node { children, metadata }
 }
