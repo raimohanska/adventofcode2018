@@ -66,7 +66,6 @@ fn main() {
           let bounds = population_bounds_size(positions.clone());
           if bounds.1 <= 10 {
             print_population(positions.clone());
-            //println!("Positions {:?}", positions.collect::<Vec<_>>());
             println!("Took {} seconds.", n);
             break;
           }
